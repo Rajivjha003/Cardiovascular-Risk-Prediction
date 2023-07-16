@@ -1,0 +1,13 @@
+prefix=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
+exec_prefix=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
+libdir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
+sharedlibdir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
+includedir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
