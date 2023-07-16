@@ -2,4 +2,7 @@ Flask
 sklearn
 numpy
 pandas
-matplotlip
+matplotlib
+joblib
+scipy
+scikit-learn

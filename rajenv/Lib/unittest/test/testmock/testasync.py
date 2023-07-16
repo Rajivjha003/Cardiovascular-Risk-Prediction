@@ -11,7 +11,7 @@ support.requires_working_socket(module=True)
 from asyncio import run, iscoroutinefunction
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import (ANY, call, AsyncMock, patch, MagicMock, Mock,
-                           create_autospec, sentinel, _CallList)
+                           create_autospec, sentinel, _CallList, seal)
 
 
 def tearDownModule():
@@ -149,6 +149,23 @@ class AsyncPatchCMTest(unittest.TestCase):
 
         run(test_async())
 
+    def test_patch_dict_async_def(self):
+        foo = {'a': 'a'}
+        @patch.dict(foo, {'a': 'b'})
+        async def test_async():
+            self.assertEqual(foo['a'], 'b')
+
+        self.assertTrue(iscoroutinefunction(test_async))
+        run(test_async())
+
+    def test_patch_dict_async_def_context(self):
+        foo = {'a': 'a'}
+        async def test_async():
+            with patch.dict(foo, {'a': 'b'}):
+                self.assertEqual(foo['a'], 'b')
+
+        run(test_async())
+
 
 class AsyncMockTest(unittest.TestCase):
     def test_iscoroutinefunction_default(self):
@@ -282,6 +299,14 @@ class AsyncSpecTest(unittest.TestCase):
         mock = Mock(AsyncClass)
         self.assertIsInstance(mock.async_method, AsyncMock)
         self.assertIsInstance(mock.normal_method, Mock)
+
+    def test_spec_normal_methods_on_class_with_mock_seal(self):
+        mock = Mock(AsyncClass)
+        seal(mock)
+        with self.assertRaises(AttributeError):
+            mock.normal_method
+        with self.assertRaises(AttributeError):
+            mock.async_method
 
     def test_spec_mock_type_kw(self):
         def inner_test(mock_type):
@@ -1059,3 +1084,7 @@ class AsyncMockAssert(unittest.TestCase):
                         'Actual: [call(1)]'))) as cm:
             self.mock.assert_has_awaits([call(), call(1, 2)])
         self.assertIsInstance(cm.exception.__cause__, TypeError)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,8 +1,8 @@
-prefix=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
-exec_prefix=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
-libdir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
-sharedlibdir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
-includedir=D:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/include
+prefix=d:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
+exec_prefix=d:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library
+libdir=d:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
+sharedlibdir=d:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/lib
+includedir=d:/Cardiovascular Disease Project/Cardiovascular-Risk-Prediction/rajenv/Library/include
 
 Name: zlib
 Description: zlib compression library
