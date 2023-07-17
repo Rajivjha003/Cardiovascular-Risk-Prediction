@@ -1,3 +1,163 @@
-<h1>
-Hello World
-</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHD Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .btn-primary {
+            border-radius: 0;
+        }
+
+        .prediction {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CHD Prediction</h1>
+        <form action="{{ url_for('predict') }}" method="POST">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select class="form-control" id="sex" name="sex" required>
+                    <option value="0">Female</option>
+                    <option value="1">Male</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="is_smoking">Smoking:</label>
+                <select class="form-control" id="is_smoking" name="is_smoking" required>
+                    <option value="0">Non-Smoker</option>
+                    <option value="1">Smoker</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="BPMeds">BPMeds:</label>
+                <select class="form-control" id="BPMeds" name="BPMeds" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prevalentStroke">Prevalent Stroke:</label>
+                <select class="form-control" id="prevalentStroke" name="prevalentStroke" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prevalentHyp">Prevalent Hypertension:</label>
+                <select class="form-control" id="prevalentHyp" name="prevalentHyp" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="diabetes">Diabetes:</label>
+                <select class="form-control" id="diabetes" name="diabetes" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="totChol">Total Cholesterol:</label>
+                <input type="number" class="form-control" id="totChol" name="totChol" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sysBP">Systolic Blood Pressure:</label>
+                <input type="number" class="form-control" id="sysBP" name="sysBP" required>
+            </div>
+
+            <div class="form-group">
+                <label for="diaBP">Diastolic Blood Pressure:</label>
+                <input type="number" class="form-control" id="diaBP" name="diaBP" required>
+            </div>
+
+            <div class="form-group">
+                <label for="BMI">BMI:</label>
+                <input type="number" class="form-control" id="BMI" name="BMI" required>
+            </div>
+
+            <div class="form-group">
+                <label for="heartRate">Heart Rate:</label>
+                <input type="number" class="form-control" id="heartRate" name="heartRate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="glucose">Glucose:</label>
+                <input type="number" class="form-control" id="glucose" name="glucose" required>
+            </div>
+
+            <div class="form-group">
+                <label for="BP_Label">Blood Pressure Label:</label>
+                <select class="form-control" id="BP_Label" name="BP_Label" required>
+                    <option value="0">Normal</option>
+                    <option value="1">Prehypertension</option>
+                    <option value="2">Hypertension</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Smoking_Category">Smoking Category:</label>
+                <select class="form-control" id="Smoking_Category" name="Smoking_Category" required>
+                    <option value="0">Non-smoker</option>
+                    <option value="1">Light smoker</option>
+                    <option value="2">Moderate smoker</option>
+                    <option value="3">Heavy smoker</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="prediction">
+            Chances of CHD: {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

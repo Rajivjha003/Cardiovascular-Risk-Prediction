@@ -37,9 +37,20 @@ def predict_api():
     scaled_features = scaler.transform(features)
     prediction = naive_bayes_chd.predict(scaled_features)[0]
 
-    return jsonify(int(prediction))  # Convert prediction to an integer
+    return jsonify(prediction)
+
+@app.route('/predict',methods=['POST'])
+def predict():
+    data=[int(x) for x in request.form.values()]
+    final_input=scaler.transform(np.array(data).reshape(1,-1))
+    output=naive_bayes_chd.predict(final_input)[0]
+    
+    if output == 1:
+        prediction_text = "Yes"
+    else:
+        prediction_text = "No"
+
+    return render_template("home.html", prediction_text=prediction_text)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
