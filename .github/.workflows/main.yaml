@@ -1,0 +1,49 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - feature/cardiovasculardisease
+  pull_request:
+    branches:
+      - feature/cardiovasculardisease
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+
+    - name: Install dependencies
+      run: pip install -r requirement.txt
+
+    - name: Build and push Docker image to Render
+      uses: render/action-docker-build@v1
+      with:
+        context: .
+        username: ${{ github.actor }}
+        password: ${{ secrets.RENDER_TOKEN }}
+        registry: registry.render.com
+        tag: latest
+
+    - name: Deploy to Render service
+      uses: render/action-deploy@v1
+      with:
+        username: ${{ github.actor }}
+        api_key: ${{ secrets.RENDER_TOKEN }}
+        render_yaml_path: render.yaml
+        context: .
+
+    - name: Run automated tests (if applicable)
+      run: |
+        # Add automated tests here if you have any
+
+    - name: Complete deployment
+      run: echo "Deployment completed successfully!"
